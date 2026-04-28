@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/main.uss?fileID=7433441132597879392&amp;guid=7b785a83b65e9d24188f47c78d59c844&amp;type=3#main" />
+    <ui:VisualElement class="main-view">
+        <ui:Toggle name="Toggle-LobbyOwner" text="Lobby Owner" />
+        <ui:VisualElement class="section-container">
+            <ui:TwoPaneSplitView fixed-pane-initial-dimension="300">
+                <ui:VisualElement class="split-window">
+                    <ui:VisualElement name="NodesContainer" class="section-container">
+                        <ui:Label tabindex="-1" text="Nodes" display-tooltip-when-elided="true" name="Name-Nodes" />
+                        <ui:TreeView name="TreeView-Nodes" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="split-window">
+                    <ui:VisualElement name="BehaviourTreeContainer" class="section-container">
+                        <ui:VisualElement name="RedTeam" class="section-container" style="border-top-width: 10px; border-left-width: 10px; border-bottom-width: 10px; border-right-width: 10px; border-right-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0);">
+                            <ui:Label tabindex="-1" text="BehaviourTree" display-tooltip-when-elided="true" name="Name-RedTeam" />
+                            <ui:TreeView name="TreeView-BehaviourTree" reorderable="true" selection-type="Multiple" class="team-list" style="background-color: rgb(75, 74, 74);" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:TwoPaneSplitView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
