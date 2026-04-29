@@ -1,6 +1,12 @@
+using System;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+
+[CreateAssetMenu()]
 public class BTree
 {
-    BTNode m_Root;
+    public BTNode m_Root;
+
     public Blackboard m_Blackboard;
 
     public BTree(BTNode root)

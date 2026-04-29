@@ -2,15 +2,15 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BTState
+public abstract class BTNode : ScriptableObject
 {
-    SUCCESS,
-    FAILURE,
-    PROCESSING
-}
+    public enum BTState
+    {
+        SUCCESS,
+        FAILURE,
+        PROCESSING
+    }
 
-public abstract class BTNode
-{
     public BTState m_State;
     public List<BTNode> m_Children;
     public int m_ActiveChild;
