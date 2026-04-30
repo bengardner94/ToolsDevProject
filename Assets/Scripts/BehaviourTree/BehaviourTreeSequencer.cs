@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BehaviourTreeSequencer : BTNode
+public class BTSequencer : BTComposite
 {
     public override BTState Process()
     {

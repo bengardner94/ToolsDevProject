@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BehaviourTreeMoveAway : BTNode
+public class BTMoveAway : BTAction
 {
     string fleeTarget = "FleeTarget";
     string fleeBehaviour = "fleeBehaviour";

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BehaviourTreeMoveTo : BTNode
+public class BTMoveTo : BTAction
 {
     string targetPosition = "TargetPos";
     string seekBehaviour = "SeekBehaviour";

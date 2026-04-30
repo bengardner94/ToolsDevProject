@@ -3,7 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [CreateAssetMenu()]
-public class BTree
+public class BTree : ScriptableObject
 {
     public BTNode m_Root;
 
