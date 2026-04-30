@@ -13,6 +13,7 @@ public abstract class BTNode : ScriptableObject
 
     public BTState m_State;
     public Blackboard m_Blackboard;
+    public string m_Name;   
 
     public abstract BTState Process();
 
