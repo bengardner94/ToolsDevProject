@@ -8,7 +8,7 @@ public class BTRepeater : BTDecorator
     {
         for (int i = 0; i < m_Repeat; i++)
         {
-            BTState ret = m_Child.Process();
+            BTState ret = m_Children[0].Process();
 
             if (ret == BTState.FAILURE)
             {

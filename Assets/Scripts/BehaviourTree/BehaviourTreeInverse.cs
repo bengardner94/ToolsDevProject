@@ -2,7 +2,7 @@ public class BTInverse : BTDecorator
 {
     public override BTState Process()
     {
-        BTState ret = m_Child.Process();
+        BTState ret = m_Children[0].Process();
 
         if (ret == BTState.SUCCESS)
         {

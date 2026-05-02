@@ -6,7 +6,7 @@ public class BTInfRepeater : BTDecorator
     {
         while (true)
         {
-            BTState state = m_Child.Process();
+            BTState state = m_Children[0].Process();
 
             if (state == BTState.FAILURE)
             {
