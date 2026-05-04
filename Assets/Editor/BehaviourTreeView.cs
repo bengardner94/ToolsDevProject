@@ -12,10 +12,6 @@ public class BehaviourTreeView : TreeView
 
     protected override TreeViewItem BuildRoot()
     {
-        TreeViewItem root = new TreeViewItem { id = 0, depth = -1, displayName = "Root" };
-        List<TreeViewItem> allItems = new List<TreeViewItem>
-        {
-            
-        }
+        var root = new TreeViewItem { }
     }
 }
