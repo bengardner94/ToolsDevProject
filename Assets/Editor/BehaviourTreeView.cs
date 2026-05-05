@@ -3,15 +3,10 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using System.Collections.Generic;
 
-public class BehaviourTreeView : TreeView
+public class BehaviourTreeView : BTree
 {
-    public BehaviourTreeView(TreeViewState state) : base(state)
+    public BehaviourTreeView(BTNode root = ScriptableObject.CreateInstance<BTInfRepeater>) : base(root)
     {
-        Reload();
-    }
-
-    protected override TreeViewItem BuildRoot()
-    {
-        var root = new TreeViewItem { }
+        
     }
 }

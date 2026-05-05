@@ -23,6 +23,8 @@ public class BTree : ScriptableObject
         m_Root.Process();
     }
 
+
+
     public BTNode CreateNode(System.Type type)
     {
         BTNode node = ScriptableObject.CreateInstance(type) as BTNode;
