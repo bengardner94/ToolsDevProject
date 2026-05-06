@@ -16,7 +16,5 @@ public class BehaviourTreeEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-
-        EditorGUILayout.Foldout()
     }
 }
