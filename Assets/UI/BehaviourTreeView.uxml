@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UI/main.uss?fileID=7433441132597879392&amp;guid=39421a4eec94b8143a52d26957996742&amp;type=3#main" />
+    <uie:Toolbar name="Toolbar">
+        <uie:ToolbarMenu text="Assets" />
+    </uie:Toolbar>
+    <ui:VisualElement class="main-view">
+        <ui:VisualElement class="section-container">
+            <ui:TwoPaneSplitView fixed-pane-initial-dimension="300">
+                <ui:VisualElement name="LeftPanel" class="split-window">
+                    <ui:Label text="InspectorView" style="flex-direction: row-reverse; align-items: auto; justify-content: space-evenly; align-content: stretch; align-self: flex-start; background-color: rgb(60, 60, 60); flex-wrap: wrap-reverse; min-width: 250px; color: rgb(253, 245, 230);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="RightPanel" class="split-window">
+                    <ui:Label text="BehaviourTreeView" style="background-color: rgb(47, 47, 47); color: rgb(255, 250, 250); -unity-text-outline-color: rgb(47, 47, 47);" />
+                    <ui:TreeView style="background-color: rgb(60, 60, 60);" />
+                </ui:VisualElement>
+            </ui:TwoPaneSplitView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
