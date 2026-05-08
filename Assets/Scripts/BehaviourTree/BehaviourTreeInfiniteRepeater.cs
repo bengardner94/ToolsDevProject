@@ -1,7 +1,7 @@
-
-
 public class BTInfRepeater : BTDecorator
 {
+    
+
     public override BTState Process()
     {
         while (true)

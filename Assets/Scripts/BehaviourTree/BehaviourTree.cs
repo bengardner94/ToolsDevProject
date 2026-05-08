@@ -7,17 +7,22 @@ using UnityEngine;
 public class BTree : ScriptableObject
 {
     public BTNode m_Root;
-    public List<BTNode> m_Nodes;
+    public List<BTNode> m_Nodes = new List<BTNode>();
 
     public Blackboard m_Blackboard;
 
     public BTree(BTNode root)
     {
+        m_Nodes.Add(root);
         m_Blackboard = new Blackboard();
         m_Root = root;
         m_Root.AddBBRecursive(m_Blackboard);
     }
 
+    public void SetRoot(BTNode root)
+    {
+        m_Root = root;
+    }
     
     public void Process()
     {

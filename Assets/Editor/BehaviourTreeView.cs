@@ -2,34 +2,37 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
-using JetBrains.Annotations;
 
 [UxmlElement]
 public partial class BehaviourTreeView : TreeView
 {
-    public BehaviourTreeView()
+    public BTree m_tree;
+    public int id = 0;
+
+    public List<TreeViewItemData<BehaviourTreeItem>> CreateTreeView(BTree tree)
     {
-        public BTree m_tree;
-        public int id = 0;
+        m_tree = tree;
+        List<TreeViewItemData<BehaviourTreeItem>> nodesList = new List<TreeViewItemData<BehaviourTreeItem>>();
 
-        void CreateTreeView(BTree tree)
+        BehaviourTreeItem rootItem = new BehaviourTreeItem(id, "BTreeRoot", m_tree.m_Root, this);
+        nodesList.Add(new TreeViewItemData<BehaviourTreeItem>(rootItem.m_ID, rootItem));
+        return nodesList;
+
+        /*foreach (BTNode nodes in m_tree.m_Nodes)
         {
-            m_tree = tree;
-            List<TreeViewItemData<NodeView>> nodesList = new List<TreeViewItemData<NodeView>>();
+            BehaviourTreeItem bTreeItem = new BehaviourTreeItem(id, nodes.name, nodes, this);
+            nodesList.Add(new TreeViewItemData<BehaviourTreeItem>(bTreeItem.m_ID, bTreeItem));
+            id++;
+        }*/
+    }
 
-            foreach (BTNode nodes in m_tree.m_Nodes)
-            {
-                NodeView nodeView = new NodeView(id, nodes.name, nodes, this);
-                nodesList.Add(new TreeViewItemData<NodeView>(nodeView.m_ID, nodeView));
-                id++;
-            }
-            
-        }
+    public void CreateNode(System.Type type)
+    {
+        BTNode node = m_tree.CreateNode(type);
+    }
 
-        public void CreateNode(System.Type type)
-        {
-            BTNode node = m_tree.CreateNode(type);
-
-        }
+    public void DeleteNode()
+    {
+        
     }
 }

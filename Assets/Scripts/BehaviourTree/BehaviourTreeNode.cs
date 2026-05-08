@@ -16,12 +16,12 @@ public abstract class BTNode : ScriptableObject
     public BTState m_State;
     public Blackboard m_Blackboard;
 
-    [SerializeField] int m_ID;
-    [SerializeField] string m_Name;
-    [SerializeField] int m_Depth;
-    [SerializeField] public BTNode m_Node;
-    [NonSerialized] public BTNode m_Parent;
-    [NonSerialized] public List<BTNode> m_Children;
+    int m_ID;
+    public string m_Name;
+    int m_Depth;
+    public BTNode m_Node;
+    public BTNode m_Parent;
+    public List<BTNode> m_Children;
 
 
 

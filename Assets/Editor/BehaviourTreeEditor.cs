@@ -1,20 +1,43 @@
 using UnityEditor;
-using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
-[CustomEditor(typeof(BTree))]
-[CanEditMultipleObjects]
-
-public class BehaviourTreeEditor : Editor
+public class BehaviourTreeEditor : EditorWindow
 {
-    SerializedProperty treeListProperty;
+    [SerializeField]
+    private VisualTreeAsset m_VisualTreeAsset = default;
 
-    public void OnEnable()
+    [MenuItem("Window/UI Toolkit/BehaviourTreeEditor")]
+    public static void ShowExample()
     {
-        treeListProperty = serializedObject.FindProperty("m_Nodes");
+        BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
+        wnd.titleContent = new GUIContent("BehaviourTreeEditor");
     }
 
-    public override void OnInspectorGUI()
+    public void CreateGUI()
     {
-        serializedObject.Update();
+        VisualElement root = rootVisualElement;
+
+        TwoPaneSplitView splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
+
+        root.Add(splitView);
+
+        VisualElement testChild1 = new VisualElement();
+        BehaviourTreeView bTreeView = new BehaviourTreeView();
+
+        splitView.Add(testChild1);
+        splitView.Add(bTreeView);
+
+        BTInfRepeater treeRoot = ScriptableObject.CreateInstance<BTInfRepeater>();
+
+        BTree tree = ScriptableObject.CreateInstance<BTree>();
+
+        tree.SetRoot(treeRoot);
+
+        bTreeView.SetRootItems(bTreeView.CreateTreeView(tree));
+
+        bTreeView.makeItem = () => new Label();
+
+        bTreeView.bindItem = (VisualElement element, int index) => (element as Label).text = bTreeView.GetItemDataForIndex<BehaviourTreeItem>(index).m_Name;
     }
 }
