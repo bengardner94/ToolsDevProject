@@ -43,18 +43,17 @@ public class BehaviourTreeEditor : EditorWindow
 
         bTreeView.SetRootItems(nodesList);
 
-        bTreeView.makeItem = () => new Label();
+        VisualElement label = new Label();
+
+        bTreeView.makeItem = () => label;
 
         bTreeView.bindItem = (VisualElement element, int index) => (element as Label).text = bTreeView.GetItemDataForIndex<BehaviourTreeItem>(index).m_Name;
-
-        VisualElement label = new Label("test2");
-        testChild1.Add(label);
-        CreateManipulator(label);
+        CreateManipulator(label, bTreeView);
 
         //CreateManipulator(bTreeView.GetItemDataForIndex<BehaviourTreeItem>(0));
     }
 
-    void CreateManipulator(VisualElement element)
+    void CreateManipulator(VisualElement element, BehaviourTreeView bTreeView)
     {
         element.AddManipulator(new ContextualMenuManipulator((evt) =>
         {
@@ -76,7 +75,7 @@ public class BehaviourTreeEditor : EditorWindow
                 evt.menu.AppendAction(type.Name, (x) => Debug.Log("decorator made"));
             }
 
-            evt.menu.AppendAction("Delete Node", (x) => Debug.Log("node deleted"));
+            evt.menu.AppendAction("Delete Node", (x) => Debug.Log((element as Label).text));
         }));
     }
 }
