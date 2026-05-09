@@ -7,22 +7,20 @@ using UnityEngine.UIElements;
 
 public class BehaviourTreeItem : VisualElement
 {
-    public Action<BehaviourTreeItem> OnItemSelected;
     public int m_ID;
     public string m_Name;
     public BTNode m_Node;
     public BehaviourTreeView m_BTreeView;
     
 
-    public BehaviourTreeItem(int ID, string name, BTNode node, BehaviourTreeView bTreeView)
+    public BehaviourTreeItem(int ID, string name, BTNode node)
     {
         m_ID = ID;
         m_Name = name;
         m_Node = node;
-        m_BTreeView = bTreeView;
     }
 
-    void CreateManipulator()
+    /*void CreateManipulator()
     {
         this.AddManipulator(new ContextualMenuManipulator((evt) =>
         {
@@ -46,5 +44,5 @@ public class BehaviourTreeItem : VisualElement
 
             evt.menu.AppendAction("Delete Node", (x) => m_BTreeView.DeleteNode());
         }));
-    }
+    }*/
 }

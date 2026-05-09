@@ -9,14 +9,12 @@ public partial class BehaviourTreeView : TreeView
     public BTree m_tree;
     public int id = 0;
 
-    public List<TreeViewItemData<BehaviourTreeItem>> CreateTreeView(BTree tree)
+    public BehaviourTreeItem CreateTreeView(BTree tree)
     {
         m_tree = tree;
-        List<TreeViewItemData<BehaviourTreeItem>> nodesList = new List<TreeViewItemData<BehaviourTreeItem>>();
 
-        BehaviourTreeItem rootItem = new BehaviourTreeItem(id, "BTreeRoot", m_tree.m_Root, this);
-        nodesList.Add(new TreeViewItemData<BehaviourTreeItem>(rootItem.m_ID, rootItem));
-        return nodesList;
+        BehaviourTreeItem rootItem = new BehaviourTreeItem(id, "BTreeRoot", m_tree.m_Root);
+        return rootItem;
 
         /*foreach (BTNode nodes in m_tree.m_Nodes)
         {
@@ -28,11 +26,11 @@ public partial class BehaviourTreeView : TreeView
 
     public void CreateNode(System.Type type)
     {
-        BTNode node = m_tree.CreateNode(type);
+        Debug.Log("node made");
     }
 
     public void DeleteNode()
     {
-        
+        Debug.Log("node deleted");
     }
 }
