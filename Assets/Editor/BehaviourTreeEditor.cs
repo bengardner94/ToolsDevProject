@@ -1,3 +1,4 @@
+using Codice.CM.Common.Update.Partial;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -9,6 +10,7 @@ public class BehaviourTreeEditor : EditorWindow
     [SerializeField]
     BehaviourTreeView bTreeView;
     VisualElement testChild1;
+    BTree newTree;
     private VisualTreeAsset m_VisualTreeAsset = default;
 
     List<TreeViewItemData<BehaviourTreeItem>> nodesList = new List<TreeViewItemData<BehaviourTreeItem>>();
@@ -22,7 +24,8 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void CreateGUI()
     {
-        BTree newTree = Selection.activeObject as BTree;
+        var visualTreeAsset = EditorGUIUtility.Load("Assets/Editor/BehaviourTreeEditor") as VisualTreeAsset;
+        newTree = Selection.activeObject as BTree;
         VisualElement root = rootVisualElement;
 
         TwoPaneSplitView splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
@@ -35,29 +38,31 @@ public class BehaviourTreeEditor : EditorWindow
         splitView.Add(testChild1);
         splitView.Add(bTreeView);
 
+        newTree.Initialize();
+
         //BTInfRepeater treeRoot = ScriptableObject.CreateInstance<BTInfRepeater>();
 
         //BTree newTree = ScriptableObject.CreateInstance<BTree>();
+        Debug.Log("hello");
+        BTRootNode treeRoot = newTree.CreateNode(typeof(BTRootNode)) as BTRootNode;
+        newTree.SetRoot(treeRoot);
 
-        if (newTree.m_Nodes != null)
+        BehaviourTreeItem rootNode = bTreeView.CreateTreeView(newTree);
+
+        nodesList.Add(new TreeViewItemData<BehaviourTreeItem>(rootNode.m_ID, rootNode));
+
+        bTreeView.SetRootItems(nodesList);
+
+        VisualElement label = new Label();
+
+        bTreeView.makeItem = () => label;
+
+        bTreeView.bindItem = (VisualElement element, int index) =>
         {
-            Debug.Log("hello");
-            BTInfRepeater treeRoot = newTree.CreateNode(typeof(BTInfRepeater)) as BTInfRepeater;
-            newTree.SetRoot(treeRoot);
-
-            BehaviourTreeItem rootNode = bTreeView.CreateTreeView(newTree);
-
-            nodesList.Add(new TreeViewItemData<BehaviourTreeItem>(rootNode.m_ID, rootNode));
-
-            bTreeView.SetRootItems(nodesList);
-
-            VisualElement label = new Label();
-
-            bTreeView.makeItem = () => label;
-
-            bTreeView.bindItem = (VisualElement element, int index) => (element as Label).text = bTreeView.GetItemDataForIndex<BehaviourTreeItem>(index).m_Name;
-            CreateManipulator(label);
-        }
+            Debug.Log("running");
+            (element as Label).text = bTreeView.GetItemDataForIndex<BehaviourTreeItem>(index).m_Name;
+        };
+        CreateManipulator(label);
         //CreateManipulator(bTreeView.GetItemDataForIndex<BehaviourTreeItem>(0));
     }
 
@@ -89,13 +94,26 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void CreateNode(System.Type type)
     {
-        Debug.Log("node made");
+        BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
+        Debug.Log(selectedNode.m_ID);
+        BTNode newNode = newTree.CreateNode(type);
+        //Debug.Log(selectedNode.m_ID);
+        int newItemIndex = selectedNode.m_ID + 1;
+        BehaviourTreeItem newItem = new BehaviourTreeItem(newItemIndex, type.Name, newNode);
+        TreeViewItemData<BehaviourTreeItem> newTreeItem = new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem);
+        nodesList.Add(newTreeItem);
+        //Debug.Log(nodesList.IndexOf(newTreeItem));
+        //Debug.Log(selectedNode.m_ID);
+        bTreeView.AddItem<BehaviourTreeItem>(new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem), selectedNode.m_ID, (nodesList.IndexOf(newTreeItem)), false);
+        //bTreeView.SetRootItems(nodesList);
+        bTreeView.Rebuild();
     }
 
     public void RemoveNode()
     {
-        //BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
+        BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
+        bTreeView.Remove(selectedNode);
 
-        //newTree.RemoveNode(selectedNode.m_Node);
+        newTree.RemoveNode(selectedNode.m_Node);
     }
 }

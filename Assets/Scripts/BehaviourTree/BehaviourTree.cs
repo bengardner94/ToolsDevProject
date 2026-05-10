@@ -7,7 +7,7 @@ using UnityEngine;
 public class BTree : ScriptableObject
 {
     public BTNode m_Root;
-    public List<BTNode> m_Nodes = new List<BTNode>();
+    public List<BTNode> m_Nodes;
 
     public Blackboard m_Blackboard;
 
@@ -29,7 +29,10 @@ public class BTree : ScriptableObject
         m_Root.Process();
     }
 
-
+    public void Initialize()
+    {
+        m_Nodes = new List<BTNode>();
+    }
 
     public BTNode CreateNode(System.Type type)
     {

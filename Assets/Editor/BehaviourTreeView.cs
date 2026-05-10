@@ -12,6 +12,7 @@ public partial class BehaviourTreeView : TreeView
     public BehaviourTreeItem CreateTreeView(BTree tree)
     {
         m_tree = tree;
+        Debug.Log(id);
 
         BehaviourTreeItem rootItem = new BehaviourTreeItem(id, "BTreeRoot", m_tree.m_Root);
         return rootItem;
