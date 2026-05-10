@@ -17,7 +17,6 @@ public abstract class BTNode : ScriptableObject
     public Blackboard m_Blackboard;
 
     int m_ID;
-    public string m_Name;
     int m_Depth;
     public BTNode m_Node;
     public BTNode m_Parent;

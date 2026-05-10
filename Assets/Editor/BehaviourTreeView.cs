@@ -23,14 +23,4 @@ public partial class BehaviourTreeView : TreeView
             id++;
         }*/
     }
-
-    public void CreateNode(System.Type type)
-    {
-        Debug.Log("node made");
-    }
-
-    public void DeleteNode()
-    {
-        Debug.Log("node deleted");
-    }
 }

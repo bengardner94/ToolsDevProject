@@ -36,7 +36,6 @@ public class BTree : ScriptableObject
         BTNode node = ScriptableObject.CreateInstance(type) as BTNode;
         node.name = type.Name;
         m_Nodes.Add(node);
-
         AssetDatabase.AddObjectToAsset(node, this);
         AssetDatabase.SaveAssets();
 
@@ -45,7 +44,7 @@ public class BTree : ScriptableObject
 
     public void RemoveNode(BTNode node)
     {
-        m_Nodes.Remove(node);
         AssetDatabase.RemoveObjectFromAsset(node);
+        m_Nodes.Remove(node);
     }
 }
