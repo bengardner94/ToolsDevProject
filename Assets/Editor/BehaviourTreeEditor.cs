@@ -11,6 +11,7 @@ public class BehaviourTreeEditor : EditorWindow
     BehaviourTreeView bTreeView;
     VisualElement testChild1;
     BTree newTree;
+    int IDAdd = 1;
     private VisualTreeAsset m_VisualTreeAsset = default;
 
     List<TreeViewItemData<BehaviourTreeItem>> nodesList = new List<TreeViewItemData<BehaviourTreeItem>>();
@@ -43,7 +44,6 @@ public class BehaviourTreeEditor : EditorWindow
         //BTInfRepeater treeRoot = ScriptableObject.CreateInstance<BTInfRepeater>();
 
         //BTree newTree = ScriptableObject.CreateInstance<BTree>();
-        Debug.Log("hello");
         BTRootNode treeRoot = newTree.CreateNode(typeof(BTRootNode)) as BTRootNode;
         newTree.SetRoot(treeRoot);
 
@@ -53,16 +53,17 @@ public class BehaviourTreeEditor : EditorWindow
 
         bTreeView.SetRootItems(nodesList);
 
-        VisualElement label = new Label();
+        //VisualElement label = new Label();
 
-        bTreeView.makeItem = () => label;
+        bTreeView.makeItem = () => new Label();
 
         bTreeView.bindItem = (VisualElement element, int index) =>
         {
-            Debug.Log("running");
+            Debug.Log(element.ToString());
+            Debug.Log(index);
             (element as Label).text = bTreeView.GetItemDataForIndex<BehaviourTreeItem>(index).m_Name;
+            CreateManipulator(element);
         };
-        CreateManipulator(label);
         //CreateManipulator(bTreeView.GetItemDataForIndex<BehaviourTreeItem>(0));
     }
 
@@ -95,16 +96,15 @@ public class BehaviourTreeEditor : EditorWindow
     public void CreateNode(System.Type type)
     {
         BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
-        Debug.Log(selectedNode.m_ID);
         BTNode newNode = newTree.CreateNode(type);
-        //Debug.Log(selectedNode.m_ID);
-        int newItemIndex = selectedNode.m_ID + 1;
-        BehaviourTreeItem newItem = new BehaviourTreeItem(newItemIndex, type.Name, newNode);
+        int newItemID = selectedNode.m_ID + IDAdd;
+        BehaviourTreeItem newItem = new BehaviourTreeItem(newItemID, type.Name, newNode);
+        Debug.Log(newItemID);
         TreeViewItemData<BehaviourTreeItem> newTreeItem = new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem);
         nodesList.Add(newTreeItem);
         //Debug.Log(nodesList.IndexOf(newTreeItem));
-        //Debug.Log(selectedNode.m_ID);
         bTreeView.AddItem<BehaviourTreeItem>(new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem), selectedNode.m_ID, (nodesList.IndexOf(newTreeItem)), false);
+        IDAdd++;
         //bTreeView.SetRootItems(nodesList);
         bTreeView.Rebuild();
     }
