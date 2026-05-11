@@ -1,3 +1,4 @@
+using Codice.CM.Common.Update.Partial;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -44,7 +45,7 @@ public class BehaviourTreeEditor : EditorWindow
         //BTInfRepeater treeRoot = ScriptableObject.CreateInstance<BTInfRepeater>();
 
         //BTree newTree = ScriptableObject.CreateInstance<BTree>();
-        BTRootNode treeRoot = newTree.CreateNode(typeof(BTRootNode)) as BTRootNode;
+        BTRootNode treeRoot = newTree.CreateNode(typeof(BTRootNode), null) as BTRootNode;
         newTree.SetRoot(treeRoot);
 
         BehaviourTreeItem rootNode = bTreeView.CreateTreeView(newTree);
@@ -57,24 +58,19 @@ public class BehaviourTreeEditor : EditorWindow
 
         bTreeView.bindItem = (VisualElement element, int index) =>
         {
-            Debug.Log(element.ToString());
             (element as Label).text = bTreeView.GetItemDataForIndex<BehaviourTreeItem>(index).m_Name;
-            CreateManipulator(element, index);
+            CreateManipulator(element);
         };
 
         bTreeView.destroyItem = (VisualElement element) =>
         {
-            Debug.Log(element.ToString());
             element = null;
         };
 
-        bTreeView.unbindItem = (VisualElement element, int index) =>
-        {
-        };      
-        //CreateManipulator(bTreeView.GetItemDataForIndex<BehaviourTreeItem>(0));
+        bTreeView.selectionChanged += UpdateSelection;
     }
 
-    void CreateManipulator(VisualElement element, int index)
+    void CreateManipulator(VisualElement element)
     {
         element.AddManipulator(new ContextualMenuManipulator((evt) =>
         {
@@ -96,33 +92,49 @@ public class BehaviourTreeEditor : EditorWindow
                 evt.menu.AppendAction(type.Name, (x) => CreateNode(type));
             }
 
-            evt.menu.AppendAction("Delete Node", (x) => RemoveNode(element, index));
+            evt.menu.AppendAction("Delete Node", (x) => RemoveNode(element));
         }));
     }
 
     public void CreateNode(System.Type type)
     {
         BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
-        BTNode newNode = newTree.CreateNode(type);
+        if (selectedNode.m_ChildList >= 1 )
+        {
+            Debug.Log("too many children");
+        }
+        BTNode newNode = newTree.CreateNode(type, selectedNode.m_Node);
         int newItemID = selectedNode.m_ID + IDAdd;
-        BehaviourTreeItem newItem = new BehaviourTreeItem(newItemID, type.Name, newNode);
+        BehaviourTreeItem newItem = new BehaviourTreeItem(newItemID, type.Name, newNode, selectedNode);
         TreeViewItemData<BehaviourTreeItem> newTreeItem = new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem);
         nodesList.Add(newTreeItem);
-        //Debug.Log(nodesList.IndexOf(newTreeItem));
         bTreeView.AddItem<BehaviourTreeItem>(new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem), selectedNode.m_ID, (nodesList.IndexOf(newTreeItem)), false);
-        IDAdd++;
-        //bTreeView.SetRootItems(nodesList);
+        IDAdd++;;
+        selectedNode.m_ChildList++;
         bTreeView.Rebuild();
     }
 
-    public void RemoveNode(VisualElement element, int index)
+    public void RemoveNode(VisualElement element)
     {
         Debug.Log(element.ToString());
         BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
+        BTRootNode testForRoot = selectedNode.m_Node as BTRootNode;
+        if (testForRoot != null)
+        {
+            Debug.Log("Cannot delete root node");
+        }
+        else
+        {
+            bTreeView.TryRemoveItem(selectedNode.m_ID);
+            bTreeView.Rebuild();
 
-        bTreeView.TryRemoveItem(selectedNode.m_ID);
-        bTreeView.Rebuild();
+            newTree.RemoveNode(selectedNode.m_Node, selectedNode.m_Parent.m_Node);
+        }
+    }
 
-        newTree.RemoveNode(selectedNode.m_Node);
+    public void UpdateSelection(IEnumerable<object> testItem)
+    {
+        if (bTreeView.selectedItem != null)
+            Debug.Log((bTreeView.selectedItem as BehaviourTreeItem).m_Node.GetDescription());
     }
 }

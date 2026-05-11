@@ -14,7 +14,7 @@ public partial class BehaviourTreeView : TreeView
         m_tree = tree;
         Debug.Log(id);
 
-        BehaviourTreeItem rootItem = new BehaviourTreeItem(id, "BTreeRoot", m_tree.m_Root);
+        BehaviourTreeItem rootItem = new BehaviourTreeItem(id, "BTreeRoot", m_tree.m_Root, null);
         return rootItem;
 
         /*foreach (BTNode nodes in m_tree.m_Nodes)

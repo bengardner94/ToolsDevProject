@@ -32,22 +32,36 @@ public class BTree : ScriptableObject
     public void Initialize()
     {
         m_Nodes = new List<BTNode>();
+        AssetDatabase.Refresh();
     }
 
-    public BTNode CreateNode(System.Type type)
+    public BTNode CreateNode(System.Type type, BTNode parent)
     {
         BTNode node = ScriptableObject.CreateInstance(type) as BTNode;
-        node.name = type.Name;
-        m_Nodes.Add(node);
-        AssetDatabase.AddObjectToAsset(node, this);
-        AssetDatabase.SaveAssets();
+        if (parent == null)
+        {
+            node.name = type.Name;
+            m_Nodes.Add(node);
+            AssetDatabase.AddObjectToAsset(node, this);
+            AssetDatabase.SaveAssets();
+        }
+        else
+        {
+            node.name = type.Name;
+            m_Nodes.Add(node);
+            AssetDatabase.AddObjectToAsset(node, this);
+            AssetDatabase.SaveAssets();
+            parent.m_Children.Add(node);
+        }
 
         return node;
     }
 
-    public void RemoveNode(BTNode node)
+    public void RemoveNode(BTNode node, BTNode parent)
     {
-        AssetDatabase.RemoveObjectFromAsset(node);
         m_Nodes.Remove(node);
+        parent.m_Children.Remove(node);
+        AssetDatabase.RemoveObjectFromAsset(node);
+        AssetDatabase.SaveAssets();
     }
 }

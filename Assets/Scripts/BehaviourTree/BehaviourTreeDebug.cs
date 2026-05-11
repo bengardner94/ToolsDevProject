@@ -9,4 +9,9 @@ public class BTDebug : BTAction
         Debug.Log(m_Debug);
         return BTState.SUCCESS;
     }
+
+    public override string GetDescription()
+    {
+        return ("Outputs a string to the console");
+    }
 }

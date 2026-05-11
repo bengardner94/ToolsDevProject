@@ -14,4 +14,9 @@ public class BTInfRepeater : BTDecorator
             }
         }
     }
+
+    public override string GetDescription()
+    {
+        return ("Loops infinitely until failure");
+    }
 }

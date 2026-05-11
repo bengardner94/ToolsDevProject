@@ -18,4 +18,9 @@ public class BTRepeater : BTDecorator
 
         return BTState.SUCCESS;
     }
+
+    public override string GetDescription()
+    {
+        return ("Repeatedly processes the child until a specified limit or the child returns failure");
+    }
 }

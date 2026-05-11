@@ -13,19 +13,20 @@ public abstract class BTNode : ScriptableObject
     }
 
 
-    public BTState m_State;
+    BTState m_State;
     public Blackboard m_Blackboard;
 
-    int m_ID;
-    int m_Depth;
+    public string m_Description;
     public BTNode m_Node;
     public BTNode m_Parent;
-    public List<BTNode> m_Children;
+    public List<BTNode> m_Children = new List<BTNode>();
 
 
 
 
     public abstract BTState Process();
+
+    public abstract string GetDescription();
 
     public void AddBBRecursive(Blackboard bb)
     {
