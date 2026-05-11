@@ -1,6 +1,7 @@
 using Codice.CM.Common.Update.Partial;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,6 +11,7 @@ public class BehaviourTreeEditor : EditorWindow
     [SerializeField]
     BehaviourTreeView bTreeView;
     VisualElement testChild1;
+    Label descriptionLabel;
     BTree newTree;
     int IDAdd = 1;
     private VisualTreeAsset m_VisualTreeAsset = default;
@@ -31,14 +33,20 @@ public class BehaviourTreeEditor : EditorWindow
         VisualElement root = rootVisualElement;
 
         TwoPaneSplitView splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
+        TwoPaneSplitView splitView2 = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Vertical);
 
+
+        descriptionLabel = new Label();
         testChild1 = new VisualElement();
         bTreeView = new BehaviourTreeView();
 
         root.Add(splitView);
 
-        splitView.Add(testChild1);
+        splitView.Add(splitView2);
         splitView.Add(bTreeView);
+
+        splitView2.Add(descriptionLabel);
+        splitView2.Add(testChild1);
 
         newTree.Initialize();
 
@@ -99,19 +107,33 @@ public class BehaviourTreeEditor : EditorWindow
     public void CreateNode(System.Type type)
     {
         BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
-        if (selectedNode.m_ChildList >= 1 )
+        BTAction testAction = selectedNode.m_Node as BTAction;
+        if (testAction != null)
         {
-            Debug.Log("too many children");
+            descriptionLabel.text = ("Action nodes cannot have children");
         }
-        BTNode newNode = newTree.CreateNode(type, selectedNode.m_Node);
-        int newItemID = selectedNode.m_ID + IDAdd;
-        BehaviourTreeItem newItem = new BehaviourTreeItem(newItemID, type.Name, newNode, selectedNode);
-        TreeViewItemData<BehaviourTreeItem> newTreeItem = new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem);
-        nodesList.Add(newTreeItem);
-        bTreeView.AddItem<BehaviourTreeItem>(new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem), selectedNode.m_ID, (nodesList.IndexOf(newTreeItem)), false);
-        IDAdd++;;
-        selectedNode.m_ChildList++;
-        bTreeView.Rebuild();
+        else
+        {
+            BTDecorator testDecorator = selectedNode.m_Node as BTDecorator;
+            BTRootNode testRoot = selectedNode.m_Node as BTRootNode;
+            if ((testRoot != null || testDecorator != null) && selectedNode.m_Node.m_Children.Count == 1)
+            {
+                descriptionLabel.text = ("too many children");
+
+            }
+            else
+            {
+                BTNode newNode = newTree.CreateNode(type, selectedNode.m_Node);
+                int newItemID = selectedNode.m_ID + IDAdd;
+                BehaviourTreeItem newItem = new BehaviourTreeItem(newItemID, type.Name, newNode, selectedNode);
+                TreeViewItemData<BehaviourTreeItem> newTreeItem = new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem);
+                nodesList.Add(newTreeItem);
+                bTreeView.AddItem<BehaviourTreeItem>(new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem), selectedNode.m_ID, (nodesList.IndexOf(newTreeItem)), false);
+                IDAdd++; ;
+                selectedNode.m_ChildList++;
+                bTreeView.Rebuild();
+            }
+        }
     }
 
     public void RemoveNode(VisualElement element)
@@ -121,7 +143,7 @@ public class BehaviourTreeEditor : EditorWindow
         BTRootNode testForRoot = selectedNode.m_Node as BTRootNode;
         if (testForRoot != null)
         {
-            Debug.Log("Cannot delete root node");
+            descriptionLabel.text = ("Cannot delete root node");
         }
         else
         {
@@ -135,6 +157,6 @@ public class BehaviourTreeEditor : EditorWindow
     public void UpdateSelection(IEnumerable<object> testItem)
     {
         if (bTreeView.selectedItem != null)
-            Debug.Log((bTreeView.selectedItem as BehaviourTreeItem).m_Node.GetDescription());
+            descriptionLabel.text = ((bTreeView.selectedItem as BehaviourTreeItem).m_Node.GetDescription());
     }
 }

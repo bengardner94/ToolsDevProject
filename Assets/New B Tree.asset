@@ -1,6 +1,41 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7217517923466564175
+--- !u!114 &-5995546155931656103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
+  m_Name: BTRootNode
+  m_EditorClassIdentifier: 
+  m_Description: 
+  m_Node: {fileID: 0}
+  m_Parent: {fileID: 0}
+  m_Children:
+  - {fileID: -4085030358649038311}
+  - {fileID: -150598893102492763}
+--- !u!114 &-4085030358649038311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27713663c9e91444aa901574c4d4b7d2, type: 3}
+  m_Name: BTDebug
+  m_EditorClassIdentifier: 
+  m_Description: 
+  m_Node: {fileID: 0}
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_Debug: 
+--- !u!114 &-3993267838025448495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16,7 +51,7 @@ MonoBehaviour:
   m_Node: {fileID: 0}
   m_Parent: {fileID: 0}
   m_Children: []
---- !u!114 &-6447941445644849804
+--- !u!114 &-3019244239441257995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25,48 +60,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
-  m_Name: BTRootNode
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children:
-  - {fileID: -7217517923466564175}
---- !u!114 &-3741725400106942583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
-  m_Name: BTRootNode
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children:
-  - {fileID: -2504180080638097288}
---- !u!114 &-3588321402367125078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
-  m_Name: BTRootNode
+  m_Script: {fileID: 11500000, guid: 27713663c9e91444aa901574c4d4b7d2, type: 3}
+  m_Name: BTDebug
   m_EditorClassIdentifier: 
   m_Description: 
   m_Node: {fileID: 0}
   m_Parent: {fileID: 0}
   m_Children: []
---- !u!114 &-2852252508127634538
+  m_Debug: 
+--- !u!114 &-150598893102492763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,32 +77,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
-  m_Name: BTRootNode
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children:
-  - {fileID: 2687253979366998013}
---- !u!114 &-2504180080638097288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1df897f83d58e5642914dfa744b106da, type: 3}
-  m_Name: BTSelector
+  m_Script: {fileID: 11500000, guid: 27713663c9e91444aa901574c4d4b7d2, type: 3}
+  m_Name: BTDebug
   m_EditorClassIdentifier: 
   m_Description: 
   m_Node: {fileID: 0}
   m_Parent: {fileID: 0}
   m_Children: []
-  m_ActiveChild: 0
-  firstRun: 1
+  m_Debug: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,114 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716307a95b46ccc4e9a61f622e1a74a1, type: 3}
   m_Name: New B Tree
   m_EditorClassIdentifier: 
-  m_Root: {fileID: 645578132388677271}
+  m_Root: {fileID: 5504801505113251538}
   m_Nodes:
-  - {fileID: 645578132388677271}
---- !u!114 &645578132388677271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
-  m_Name: BTRootNode
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children: []
---- !u!114 &1529853746886670699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b0e7483e8ee73b40b3f61a0e81ba79d, type: 3}
-  m_Name: BTRepeater
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_Repeat: 0
---- !u!114 &2687253979366998013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1df897f83d58e5642914dfa744b106da, type: 3}
-  m_Name: BTSelector
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children:
-  - {fileID: 5372581158727071465}
-  m_ActiveChild: 0
-  firstRun: 1
---- !u!114 &2694884986668941561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0cffb7cd42731647979756848f227f8, type: 3}
-  m_Name: BTSequencer
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_ActiveChild: 0
-  firstRun: 1
---- !u!114 &3151844642871838007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
-  m_Name: BTRootNode
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children: []
---- !u!114 &5372581158727071465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1df897f83d58e5642914dfa744b106da, type: 3}
-  m_Name: BTSelector
-  m_EditorClassIdentifier: 
-  m_Description: 
-  m_Node: {fileID: 0}
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_ActiveChild: 0
-  firstRun: 1
---- !u!114 &7211186377931897048
+  - {fileID: 5504801505113251538}
+  - {fileID: 7516085921966538898}
+  - {fileID: -3993267838025448495}
+  - {fileID: -3019244239441257995}
+--- !u!114 &5504801505113251538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,4 +119,21 @@ MonoBehaviour:
   m_Node: {fileID: 0}
   m_Parent: {fileID: 0}
   m_Children:
-  - {fileID: 1529853746886670699}
+  - {fileID: 7516085921966538898}
+--- !u!114 &7516085921966538898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66754e9603b7b44b8f3107f524716a6, type: 3}
+  m_Name: BTInverse
+  m_EditorClassIdentifier: 
+  m_Description: 
+  m_Node: {fileID: 0}
+  m_Parent: {fileID: 0}
+  m_Children:
+  - {fileID: -3993267838025448495}
