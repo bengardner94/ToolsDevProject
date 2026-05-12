@@ -33,6 +33,7 @@ public class BTree : ScriptableObject
     {
         if (m_Nodes != null)
         {
+            //Removes all nodes from the asset when the Editor window is created
             foreach (BTNode node in m_Nodes)
             {
                 AssetDatabase.RemoveObjectFromAsset(node);
@@ -47,6 +48,7 @@ public class BTree : ScriptableObject
         BTNode node = ScriptableObject.CreateInstance(type) as BTNode;
         if (parent == null)
         {
+            //Runs when creating the root node
             node.name = type.Name;
             m_Nodes.Add(node);
             AssetDatabase.AddObjectToAsset(node, this);
@@ -54,6 +56,7 @@ public class BTree : ScriptableObject
         }
         else
         {
+            //Runs when adding children
             node.name = type.Name;
             m_Nodes.Add(node);
             AssetDatabase.AddObjectToAsset(node, this);
@@ -66,6 +69,7 @@ public class BTree : ScriptableObject
 
     public void RemoveNode(BTNode node, BTNode parent)
     {
+        //Removes the selected node from the tree, asset as well as the child list of its parent
         m_Nodes.Remove(node);
         parent.m_Children.Remove(node);
         foreach (BTNode child in node.m_Children)

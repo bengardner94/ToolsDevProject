@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716307a95b46ccc4e9a61f622e1a74a1, type: 3}
   m_Name: New B Tree
   m_EditorClassIdentifier: 
-  m_Root: {fileID: 0}
+  m_Root: {fileID: 2999615355337651302}
   m_Nodes:
-  - {fileID: 1719561108335582448}
---- !u!114 &1719561108335582448
+  - {fileID: 2999615355337651302}
+--- !u!114 &2999615355337651302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

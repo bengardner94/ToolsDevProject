@@ -14,10 +14,8 @@ public class BehaviourTreeEditor : EditorWindow
     Label descriptionLabel;
     BTree newTree;
     int IDAdd = 1;
-    //private VisualTreeAsset m_VisualTreeAsset = default;
 
     List<TreeViewItemData<BehaviourTreeItem>> nodesList = new List<TreeViewItemData<BehaviourTreeItem>>();
-    List<Label> labelList = new List<Label>();
 
     [MenuItem("Window/UI Toolkit/BehaviourTreeEditor")]
     public static void ShowExample()
@@ -28,7 +26,7 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void CreateGUI()
     {
-        //var visualTreeAsset = EditorGUIUtility.Load("Assets/Editor/BehaviourTreeEditor") as VisualTreeAsset;
+        //Gets the current selected asset and sets it to a behaviour tree
         newTree = Selection.activeObject as BTree;
         VisualElement root = rootVisualElement;
 
@@ -36,6 +34,7 @@ public class BehaviourTreeEditor : EditorWindow
         TwoPaneSplitView splitView2 = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Vertical);
 
 
+        //Sets the layout of the editor window
         descriptionLabel = new Label();
         inspectorView = new VisualElement();
         bTreeView = new BehaviourTreeView();
@@ -50,8 +49,11 @@ public class BehaviourTreeEditor : EditorWindow
 
         descriptionLabel.text = ("Right click on the root node to begin adding nodes");
 
+
+        //Clears the tree's list of nodes + removes all nodes from the asset
         newTree.Initialize();
 
+        //Creates a new root node that acts as the root of both the tree view and the behaviour tree
         BTRootNode treeRoot = newTree.CreateNode(typeof(BTRootNode), null) as BTRootNode;
         newTree.SetRoot(treeRoot);
 
@@ -61,6 +63,8 @@ public class BehaviourTreeEditor : EditorWindow
 
         bTreeView.SetRootItems(nodesList);
 
+
+        //Sets each new element to a label and sets the text depending on the name of the node
         bTreeView.makeItem = () => new Label();
 
         bTreeView.bindItem = (VisualElement element, int index) =>
@@ -69,16 +73,19 @@ public class BehaviourTreeEditor : EditorWindow
             CreateManipulator(element);
         };
 
+        //called when the node is deleted
         bTreeView.destroyItem = (VisualElement element) =>
         {
             element = null;
         };
 
+        //called when the player selects another node
         bTreeView.selectionChanged += UpdateSelection;
     }
 
     void CreateManipulator(VisualElement element)
     {
+        //gets all types derived from the three abstract classes and appends it to the contextual menu
         element.AddManipulator(new ContextualMenuManipulator((evt) =>
         {
             var actionTypes = TypeCache.GetTypesDerivedFrom<BTAction>();
@@ -99,12 +106,13 @@ public class BehaviourTreeEditor : EditorWindow
                 evt.menu.AppendAction("Decorator Node: " + type.Name, (x) => CreateNode(type));
             }
 
-            evt.menu.AppendAction("Delete Node", (x) => RemoveNode(element));
+            evt.menu.AppendAction("Delete Node", (x) => RemoveNode());
         }));
     }
 
     public void CreateNode(System.Type type)
     {
+        //gets the selected node and ensures that adding a new child would not cause issues
         BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
         BTAction testAction = selectedNode.m_Node as BTAction;
         if (testAction != null)
@@ -122,22 +130,24 @@ public class BehaviourTreeEditor : EditorWindow
             }
             else
             {
+                //Creates a new node, assigns it a unique ID and then adds it to the tree view by converting it into TreeViewItemData
                 BTNode newNode = newTree.CreateNode(type, selectedNode.m_Node);
                 int newItemID = selectedNode.m_ID + IDAdd;
                 BehaviourTreeItem newItem = new BehaviourTreeItem(newItemID, type.Name, newNode, selectedNode);
                 TreeViewItemData<BehaviourTreeItem> newTreeItem = new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem);
+
                 nodesList.Add(newTreeItem);
                 bTreeView.AddItem<BehaviourTreeItem>(new TreeViewItemData<BehaviourTreeItem>(newItem.m_ID, newItem), selectedNode.m_ID, (nodesList.IndexOf(newTreeItem)), false);
-                IDAdd++; ;
+                IDAdd++;
                 selectedNode.m_ChildList++;
                 bTreeView.Rebuild();
             }
         }
     }
 
-    public void RemoveNode(VisualElement element)
+    public void RemoveNode()
     {
-        Debug.Log(element.ToString());
+        //Tests if the selected object is not a root node
         BehaviourTreeItem selectedNode = bTreeView.selectedItem as BehaviourTreeItem;
         BTRootNode testForRoot = selectedNode.m_Node as BTRootNode;
         if (testForRoot != null)
@@ -146,6 +156,7 @@ public class BehaviourTreeEditor : EditorWindow
         }
         else
         {
+            //Removes the node from both the tree view and the behaviour tree
             bTreeView.TryRemoveItem(selectedNode.m_ID);
             bTreeView.Rebuild();
 
@@ -158,6 +169,7 @@ public class BehaviourTreeEditor : EditorWindow
         inspectorView.Clear();
         if (bTreeView.selectedItem != null)
         {
+            //Updates the label to be the description of the node, creates a new inspector window and adds it to the VisualElement 
             descriptionLabel.text = ((bTreeView.selectedItem as BehaviourTreeItem).m_Node.GetDescription());
             Editor editor = Editor.CreateEditor((bTreeView.selectedItem as BehaviourTreeItem).m_Node);
             IMGUIContainer container = new IMGUIContainer(() => { editor.OnInspectorGUI(); });
