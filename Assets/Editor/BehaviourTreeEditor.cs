@@ -156,7 +156,14 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void UpdateSelection(IEnumerable<object> testItem)
     {
+        testChild1.Clear();
         if (bTreeView.selectedItem != null)
+        {
             descriptionLabel.text = ((bTreeView.selectedItem as BehaviourTreeItem).m_Node.GetDescription());
+            Editor editor = Editor.CreateEditor((bTreeView.selectedItem as BehaviourTreeItem).m_Node);
+            IMGUIContainer container = new IMGUIContainer(() => { editor.OnInspectorGUI(); });
+            testChild1.Add(container);
+        }
+            
     }
 }

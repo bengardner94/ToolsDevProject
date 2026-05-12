@@ -31,8 +31,15 @@ public class BTree : ScriptableObject
 
     public void Initialize()
     {
+        if (m_Nodes != null)
+        {
+            foreach (BTNode node in m_Nodes)
+            {
+                AssetDatabase.RemoveObjectFromAsset(node);
+            }
+        }
         m_Nodes = new List<BTNode>();
-        AssetDatabase.Refresh();
+        AssetDatabase.SaveAssets();
     }
 
     public BTNode CreateNode(System.Type type, BTNode parent)

@@ -14,12 +14,12 @@ public abstract class BTNode : ScriptableObject
 
 
     BTState m_State;
-    public Blackboard m_Blackboard;
+    [HideInInspector] public Blackboard m_Blackboard;
 
-    public string m_Description;
-    public BTNode m_Node;
-    public BTNode m_Parent;
-    public List<BTNode> m_Children = new List<BTNode>();
+    [HideInInspector] public string m_Description;
+    [HideInInspector] public BTNode m_Node;
+    [HideInInspector] public BTNode m_Parent;
+    [HideInInspector] public List<BTNode> m_Children = new List<BTNode>();
 
 
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BTSequencer : BTComposite
 {
-    public bool firstRun = true;
+    [HideInInspector] public bool firstRun = true;
     public override BTState Process()
     {
         if (firstRun == true)
@@ -27,7 +27,6 @@ public class BTSequencer : BTComposite
             firstRun = true;
             return ret;
         }
-
         return ret;
     }
 

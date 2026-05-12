@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class BTComposite : BTNode
 {
-    public int m_ActiveChild;
+    [HideInInspector] public int m_ActiveChild;
 }

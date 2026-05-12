@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BTSelector : BTComposite
 {
-    public bool firstRun = true;
+    [HideInInspector] public bool firstRun = true;
     public override BTState Process()
     {
         if (firstRun)
