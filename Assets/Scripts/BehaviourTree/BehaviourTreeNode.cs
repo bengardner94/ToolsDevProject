@@ -16,7 +16,7 @@ public abstract class BTNode : ScriptableObject
     BTState m_State;
     [HideInInspector] public Blackboard m_Blackboard;
 
-    [HideInInspector] public string m_Description;
+
     [HideInInspector] public BTNode m_Node;
     [HideInInspector] public BTNode m_Parent;
     [HideInInspector] public List<BTNode> m_Children = new List<BTNode>();

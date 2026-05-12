@@ -10,11 +10,11 @@ public class BehaviourTreeEditor : EditorWindow
 {
     [SerializeField]
     BehaviourTreeView bTreeView;
-    VisualElement testChild1;
+    VisualElement inspectorView;
     Label descriptionLabel;
     BTree newTree;
     int IDAdd = 1;
-    private VisualTreeAsset m_VisualTreeAsset = default;
+    //private VisualTreeAsset m_VisualTreeAsset = default;
 
     List<TreeViewItemData<BehaviourTreeItem>> nodesList = new List<TreeViewItemData<BehaviourTreeItem>>();
     List<Label> labelList = new List<Label>();
@@ -28,7 +28,7 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void CreateGUI()
     {
-        var visualTreeAsset = EditorGUIUtility.Load("Assets/Editor/BehaviourTreeEditor") as VisualTreeAsset;
+        //var visualTreeAsset = EditorGUIUtility.Load("Assets/Editor/BehaviourTreeEditor") as VisualTreeAsset;
         newTree = Selection.activeObject as BTree;
         VisualElement root = rootVisualElement;
 
@@ -37,7 +37,7 @@ public class BehaviourTreeEditor : EditorWindow
 
 
         descriptionLabel = new Label();
-        testChild1 = new VisualElement();
+        inspectorView = new VisualElement();
         bTreeView = new BehaviourTreeView();
 
         root.Add(splitView);
@@ -46,15 +46,12 @@ public class BehaviourTreeEditor : EditorWindow
         splitView.Add(bTreeView);
 
         splitView2.Add(descriptionLabel);
-        splitView2.Add(testChild1);
+        splitView2.Add(inspectorView);
 
         descriptionLabel.text = ("Right click on the root node to begin adding nodes");
 
         newTree.Initialize();
 
-        //BTInfRepeater treeRoot = ScriptableObject.CreateInstance<BTInfRepeater>();
-
-        //BTree newTree = ScriptableObject.CreateInstance<BTree>();
         BTRootNode treeRoot = newTree.CreateNode(typeof(BTRootNode), null) as BTRootNode;
         newTree.SetRoot(treeRoot);
 
@@ -158,13 +155,13 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void UpdateSelection(IEnumerable<object> testItem)
     {
-        testChild1.Clear();
+        inspectorView.Clear();
         if (bTreeView.selectedItem != null)
         {
             descriptionLabel.text = ((bTreeView.selectedItem as BehaviourTreeItem).m_Node.GetDescription());
             Editor editor = Editor.CreateEditor((bTreeView.selectedItem as BehaviourTreeItem).m_Node);
             IMGUIContainer container = new IMGUIContainer(() => { editor.OnInspectorGUI(); });
-            testChild1.Add(container);
+            inspectorView.Add(container);
         }
             
     }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Root: {fileID: 0}
   m_Nodes:
-  - {fileID: 4883746872857693996}
---- !u!114 &4883746872857693996
+  - {fileID: 1719561108335582448}
+--- !u!114 &1719561108335582448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27,7 +27,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a88e8b4c7bbd8e4c890f3830f45ada9, type: 3}
   m_Name: BTRootNode
   m_EditorClassIdentifier: 
-  m_Description: 
   m_Node: {fileID: 0}
   m_Parent: {fileID: 0}
   m_Children: []

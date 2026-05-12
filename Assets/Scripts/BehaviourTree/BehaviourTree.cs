@@ -68,6 +68,11 @@ public class BTree : ScriptableObject
     {
         m_Nodes.Remove(node);
         parent.m_Children.Remove(node);
+        foreach (BTNode child in node.m_Children)
+        {
+            m_Nodes.Remove(child);
+            AssetDatabase.RemoveObjectFromAsset(child);
+        }
         AssetDatabase.RemoveObjectFromAsset(node);
         AssetDatabase.SaveAssets();
     }
