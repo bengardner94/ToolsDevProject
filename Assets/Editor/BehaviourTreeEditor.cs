@@ -48,6 +48,8 @@ public class BehaviourTreeEditor : EditorWindow
         splitView2.Add(descriptionLabel);
         splitView2.Add(testChild1);
 
+        descriptionLabel.text = ("Right click on the root node to begin adding nodes");
+
         newTree.Initialize();
 
         //BTInfRepeater treeRoot = ScriptableObject.CreateInstance<BTInfRepeater>();
@@ -85,19 +87,19 @@ public class BehaviourTreeEditor : EditorWindow
             var actionTypes = TypeCache.GetTypesDerivedFrom<BTAction>();
             foreach (var type in actionTypes)
             {
-                evt.menu.AppendAction(type.Name, (x) => CreateNode(type));
+                evt.menu.AppendAction("Action Node: " + type.Name, (x) => CreateNode(type));
             }
 
             var compositeTypes = TypeCache.GetTypesDerivedFrom<BTComposite>();
             foreach (var type in compositeTypes)
             {
-                evt.menu.AppendAction(type.Name, (x) => CreateNode(type));
+                evt.menu.AppendAction("Composite Node: "+ type.Name, (x) => CreateNode(type));
             }
 
             var decoratorTypes = TypeCache.GetTypesDerivedFrom<BTDecorator>();
             foreach (var type in decoratorTypes)
             {
-                evt.menu.AppendAction(type.Name, (x) => CreateNode(type));
+                evt.menu.AppendAction("Decorator Node: " + type.Name, (x) => CreateNode(type));
             }
 
             evt.menu.AppendAction("Delete Node", (x) => RemoveNode(element));
@@ -110,7 +112,7 @@ public class BehaviourTreeEditor : EditorWindow
         BTAction testAction = selectedNode.m_Node as BTAction;
         if (testAction != null)
         {
-            descriptionLabel.text = ("Action nodes cannot have children");
+            descriptionLabel.text = ("ERROR: Action nodes cannot have children");
         }
         else
         {
@@ -118,7 +120,7 @@ public class BehaviourTreeEditor : EditorWindow
             BTRootNode testRoot = selectedNode.m_Node as BTRootNode;
             if ((testRoot != null || testDecorator != null) && selectedNode.m_Node.m_Children.Count == 1)
             {
-                descriptionLabel.text = ("too many children");
+                descriptionLabel.text = ("ERROR: Decorator nodes can only have one child");
 
             }
             else
@@ -143,7 +145,7 @@ public class BehaviourTreeEditor : EditorWindow
         BTRootNode testForRoot = selectedNode.m_Node as BTRootNode;
         if (testForRoot != null)
         {
-            descriptionLabel.text = ("Cannot delete root node");
+            descriptionLabel.text = ("ERROR: Cannot delete root node");
         }
         else
         {
